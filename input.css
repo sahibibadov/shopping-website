@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply outline-none box-border;
+}
+
+@layer base {
+  body {
+    @apply font-inter;
+  }
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-secondary w-1 rounded-sm;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-white;
+  }
+}
+
+@layer components {
+  .custom-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .btn {
+    @apply px-8 py-4 text-white text-sm bg-secondary hover:bg-primary transition-all;
+  }
+  .nav-item {
+    @apply py-7 px-4 hover:text-secondary transition-all font-semibold text-sm uppercase cursor-pointer relative;
+  }
+  .section-title {
+    @apply text-primaryDark font-bold font-serif text-4xl text-balance leading-tight;
+  }
+}
+
+@layer utilities {
+  .symbol {
+    &::before {
+      content: "";
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: 15px;
+      height: 10px;
+      background-color: #9dca00;
+      border-radius: 10px;
+      z-index: 1;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      left: -3px;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: 15px;
+      height: 10px;
+      background-color: #b9ec00;
+      border-radius: 10px;
+    }
+  }
+  .card {
+    perspective: 1000px;
+    &:hover .card-image {
+      animation: rotateImage 0.5s ease-out;
+    }
+  }
+  @keyframes rotateImage {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+}
+/* scrolda navbarin yuxarida sabitlenmesi */
+.navbar {
+  --_animationStartsAfter: 10px; /* animasiyanin hansi scroldan sonra baslayacayin bildiren*/
+  --_animationDistance: 0px; /* animasiyanin neqeder scrolda davam etmeyi*/
+  transition: all 0.5s ease-in-out;
+  animation: stickyNav linear forwards;
+
+  @supports (animation-timeline: view()) {
+    top: -10rem;
+    animation-timeline: view();
+    animation-range-start: calc(100vh + var(--_animationStartsAfter));
+    animation-range-end: calc(100vh + var(--_animationStartsAfter) + var(--_animationDistance));
+  }
+}
+@keyframes stickyNav {
+  100% {
+    top: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+  }
+}
